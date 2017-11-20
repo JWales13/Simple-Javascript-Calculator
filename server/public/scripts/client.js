@@ -1,4 +1,3 @@
-console.log('js sourced');
 $(document).ready(readyNow);
 function readyNow (){
     console.log('jQuery Sourced');
@@ -20,25 +19,21 @@ answer = {}
 
 function additionFunction (){
     operator = "+";
-    console.log(operator);
     return this.operator;
 }
 
 function subtractionFunction (){
     operator = "-";
-    console.log(operator);
     return this.operator;
 }
 
 function multiplyFunction(){
     operator = "*";
-    console.log(operator);
     return this.operator;
 }
 
 function divisionFunction(){
     operator = "/";
-    console.log(operator);
     return this.operator;
 }
 
@@ -58,10 +53,10 @@ function postData(){
         url: '/do-math-stuff',
         data: {package},
         success: function(response){
-            console.log('the server got the data', response);
+
         }//end success
     })//end ajax post
-    console.log('something happened');
+    
 
     $.ajax({
         method: 'GET',

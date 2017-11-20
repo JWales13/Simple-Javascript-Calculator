@@ -14,9 +14,3 @@ app.use('/do-math-stuff', doMath)
 app.listen(port, function(){
     console.log('listening on port:', port)
 });
-
-// app.get('/doMathStuff', function(req,res){
-//     console.log('got to doMathStuff');
-//     res.send(package);
-    
-// });
