@@ -79,13 +79,12 @@ function postData(){
 }//end postData
 function appendResult(result){
     $('.displayResults').append('<p>the result is:' + result  + '</p>')
-    $('#clearButton').on('click', clearEverything);
-    $('input').val(' ');
+    $('input').val('');
     
 };
 function clearEverything(){
-    $('input').empty();
-    $('.displayResults').replaceWith('<p> </p>')
+    $('input').val('');
+    $('p').replaceWith('<p> </p>')
 }
 
 
