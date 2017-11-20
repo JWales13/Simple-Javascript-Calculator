@@ -79,7 +79,7 @@ function appendResult(result){
 };
 function clearEverything(){
     $('input').val('');
-    $('p').replaceWith('<p> </p>')
+    $('.displayResults').replaceWith('<p class="displayResults"> </p>')
 }
 
 
