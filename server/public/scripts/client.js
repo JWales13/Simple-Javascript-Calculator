@@ -1,12 +1,12 @@
 $(document).ready(readyNow);
 function readyNow (){
-    console.log('jQuery Sourced');
     $('.addition').on('click',additionFunction);
     $('.subtraction').on('click',subtractionFunction);
     $('.multiply').on('click',multiplyFunction);
     $('.divide').on('click', divisionFunction);
     $('.getResults').on('click', postData);
     $('.clearButton').on('click', clearEverything);
+    appendHistoryToDom();
 } //end readyNow
 
 var operator = "";
@@ -19,22 +19,22 @@ answer = {}
 
 function additionFunction (){
     operator = "+";
-    return this.operator;
+    return operator;
 }
 
 function subtractionFunction (){
     operator = "-";
-    return this.operator;
+    return operator;
 }
 
 function multiplyFunction(){
     operator = "*";
-    return this.operator;
+    return operator;
 }
 
 function divisionFunction(){
     operator = "/";
-    return this.operator;
+    return operator;
 }
 
 function postData(){
@@ -53,33 +53,49 @@ function postData(){
         url: '/do-math-stuff',
         data: {package},
         success: function(response){
-
+            $.ajax({
+                method: 'GET',
+                url: '/do-math-stuff',
+                data: {answer},
+                success: function(response){
+                    result = response.number
+                    console.log(result);
+                    appendResult(result);
+                    
+                }//end success function
+        }) //end ajax result
         }//end success
     })//end ajax post
     
+}//end postData
 
+
+
+function appendResult(result){
+    $('#resultsDiv').append('<p>' + package.num1 + package.operation + package.num2 + '=' + result +'</p>');
+    $('input').val('');
+    
+};//end appendResults
+
+function clearEverything(){
+    $('input').val('');
+    $('#resultsDiv').html('');
+}//end clear everything
+
+function appendHistoryToDom (){
     $.ajax({
         method: 'GET',
         url: '/do-math-stuff',
-        data: {answer},
-        success: function(response){
-            result = response.number
-            console.log(result);
-            appendResult(result);
-            
-        }//end success function
-}) //end ajax result
-// appendResult(result);
+        data: history,
+        success: function (response){
+            console.log('history came back');
+        }//end success
+    })//end ajax get
 
-}//end postData
-function appendResult(result){
-    $('.displayResults').append('<p>the result is:' + result  + '</p>')
-    $('input').val('');
     
-};
-function clearEverything(){
-    $('input').val('');
-    $('.displayResults').replaceWith('<p class="displayResults"> </p>')
-}
+    for(i=0;i<history.length;i++){
+        $('#resultsDiv').html('<p>' + package[i].num1 + package[i].operation + package[i].num2 + '=' + package[i].answer +'</p>')
+    }//end for loop
 
 
+}//end append history

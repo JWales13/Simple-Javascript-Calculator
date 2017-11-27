@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-// var mathDone = require('./modules/doesTheMath');
+var pool = require('../modules/pool.js')
 
 
 var package = {}
@@ -17,8 +17,10 @@ router.post('/', function (req,res){
 
 
 
-
+var history = []
  answer = {};
+
+
 router.get('/', function (req,res){
     switch (package.operation) {
         case "+":
@@ -34,10 +36,16 @@ router.get('/', function (req,res){
         answer.number = (package.num1 / package.num2);
         
 
-    }
+    }//end switch
     console.log('the result is ' , answer);
-    res.send(answer);
-});
+    package.answer = answer.number;
+    storeToHistory();
+    res.send(answer, history);
 
+});//end get
+
+function storeToHistory(){
+    history.push(package);
+}
 
 module.exports = router
